@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root,
+[data-theme="dark"] {
+  --bg: #0d0c0a;
+  --bg-2: #161412;
+  --text: #f5f2ec;
+  --text-muted: #a8a29a;
+  --line: rgba(245, 242, 236, 0.12);
+  --line-strong: rgba(245, 242, 236, 0.22);
+  --accent: #c9a35f;
+  --overlay-strong: rgba(10, 9, 7, 0.72);
+  --overlay-soft: rgba(10, 9, 7, 0.32);
+  --overlay-grad: linear-gradient(180deg,
+      rgba(13, 12, 10, 0.0) 0%,
+      rgba(13, 12, 10, 0.4) 50%,
+      rgba(13, 12, 10, 0.85) 100%);
+}
+
+[data-theme="light"] {
+  --bg: #f7f5f2;
+  --bg-2: #edeae4;
+  --text: #1a1917;
+  --text-muted: #6b6660;
+  --line: rgba(26, 25, 23, 0.1);
+  --line-strong: rgba(26, 25, 23, 0.18);
+  --accent: #a67c3d;
+  --overlay-strong: rgba(247, 245, 242, 0.6);
+  --overlay-soft: rgba(247, 245, 242, 0.18);
+  --overlay-grad: linear-gradient(180deg,
+      rgba(247, 245, 242, 0.0) 0%,
+      rgba(247, 245, 242, 0.45) 50%,
+      rgba(247, 245, 242, 0.88) 100%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Visible keyboard focus */
+:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* thin, elegant scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+}
+
+.container-page {
+  width: 100%;
+  max-width: 1600px;
+  margin-inline: auto;
+  padding-inline: clamp(1.5rem, 5vw, 5rem);
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+}
+
+.hairline {
+  height: 1px;
+  width: 100%;
+  background: var(--line);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
+}
+
+/* Gallery: while the GSAP pin is active the section must not scroll natively */
+.gallery-pinned {
+  overflow: hidden;
+  scroll-snap-type: none;
+}
